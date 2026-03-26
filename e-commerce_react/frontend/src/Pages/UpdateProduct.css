@@ -1,0 +1,106 @@
+.product-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  border: 1px solid #ddd;
+  padding: 1.5rem;
+  border-radius: 12px;
+  background-color: #fffefc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.left {
+  flex: 1 1 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left img {
+  width: 100%;
+  max-width: 350px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.right {
+  flex: 1 1 55%;
+}
+
+.right h1 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.right p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.right ul {
+  padding-left: 1.2rem;
+  color: #444;
+}
+
+.buttons {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.update-btn,
+.delete-btn {
+  padding: 0.6rem 1.4rem;
+  margin: 0 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.update-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.update-btn:hover {
+  background-color: #45a049;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left,
+  .right {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .right h1 {
+    font-size: 1.5rem;
+  }
+}
