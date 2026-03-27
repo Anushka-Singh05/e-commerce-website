@@ -12,23 +12,30 @@ import ProductDetail from "./Pages/ProductDetail"; // Admin detail page
 import UpdateProduct from "./Pages/UpdateProduct";
 import CartSidebar from "./components/CartSidebar";
 import { CartProvider } from "./context/CartContext";
+import Login from "./Pages/login"; 
 
 function App() {
   const location = useLocation();
+// Logic to hide Navbars/Sidebars
   const isAdminRoute = location.pathname.startsWith("/admin");
+  const isLoginPage = location.pathname === "/login"; 
 
   return (
     <CartProvider>
       {/* Show only on user routes */}
-      {!isAdminRoute && <UserNav />}
-      {!isAdminRoute && <CartSidebar />}
+      {!isAdminRoute && !isLoginPage && <UserNav />}
+      {!isAdminRoute && !isLoginPage &&<CartSidebar />}
+
 
       <Routes>
-        {/* 👤 User Routes */}
-        <Route path="/" element={<UserHome />} />
+        {/*  The Entry Point */}
+        <Route path="/login" element={<Login />} />
+
+        {/*  User Routes */}
+       <Route path="/home" element={<UserHome />} />
         <Route path="/product/:productId" element={<UserProductDetail />} />
 
-        {/* 🛍️ Admin Routes */}
+        {/*  Admin Routes */}
         <Route path="/admin" element={<Home />} />
         <Route path="/admin/products/add" element={<AddProducts />} />
 <Route path="/admin/products/update/:productId" element={<UpdateProduct />} />

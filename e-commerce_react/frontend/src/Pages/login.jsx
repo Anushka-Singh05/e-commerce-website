@@ -1,43 +1,79 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./login.css";
 
 const Login = () => {
+  const [step, setStep] = useState(1); // 1: Role Selection, 2: Login Form
+  const [role, setRole] = useState(""); 
   const navigate = useNavigate();
-  const [role, setRole] = useState("user");
 
-  const handleLogin = (e) => {
+  const handleRoleSelect = (selectedRole) => {
+    setRole(selectedRole);
+    setStep(2); // Agle step par bheje
+  };
+
+  const handleFinalLogin = (e) => {
     e.preventDefault();
-
-    // 🚪 Redirect user to appropriate dashboard
     if (role === "admin") {
       navigate("/admin");
     } else {
-      navigate("/user-home");
+      navigate("/home");
     }
   };
 
   return (
-    <div style={{ maxWidth: "400px", margin: "5rem auto", padding: "2rem", border: "1px solid #ccc", borderRadius: "8px" }}>
-      <h2 style={{ textAlign: "center", marginBottom: "1.5rem" }}>Welcome to Shopsy</h2>
-      <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-        <input type="text" placeholder="Username" required />
-        <input type="password" placeholder="Password" required />
+    <div className="auth-container">
+      <div className="auth-card fade-in">
+        
+        {step === 1 ? (
+          /* --- STEP 1: CHOOSE ROLE --- */
+          <div className="role-selection">
+            <h1>UrbanCove</h1>
+            <p className="subtitle">Please select your portal to continue</p>
+            
+            <div className="role-options">
+              <div className="role-card" onClick={() => handleRoleSelect("user")}>
+                <div className="role-icon">👤</div>
+                <h3>Customer</h3>
+                <span>Shop the latest trends</span>
+              </div>
 
-        <div>
-          <label style={{ marginRight: "1rem" }}>Select Role:</label>
-          <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
-        </div>
+              <div className="role-card" onClick={() => handleRoleSelect("admin")}>
+                <div className="role-icon">⚙️</div>
+                <h3>Administrator</h3>
+                <span>Manage products & orders</span>
+              </div>
+            </div>
+          </div>
+        ) : (
+          /* --- STEP 2: LOGIN FORM --- */
+          <div className="login-form-area">
+            <button className="back-btn" onClick={() => setStep(1)}>← Back</button>
+            <h2>{role === "admin" ? "Admin Login" : "Customer Login"}</h2>
+            
+            <form onSubmit={handleFinalLogin} className="auth-form">
+              <div className="input-group">
+                <label>Email Address</label>
+                <input type="email" placeholder="Enter your email" required />
+              </div>
+              
+              <div className="input-group">
+                <label>Password</label>
+                <input type="password" placeholder="••••••••" required />
+              </div>
+              
+              <button type="submit" className="submit-btn">
+                {role === "admin" ? "Access Dashboard" : "Start Shopping"}
+              </button>
+              
+              <p className="switch-auth">
+                Don't have an account? <span>Sign Up</span>
+              </p>
+            </form>
+          </div>
+        )}
 
-        <button type="submit" style={{ padding: "0.5rem", backgroundColor: "#333", color: "#fff", border: "none", borderRadius: "4px" }}>
-          Login
-        </button>
-      </form>
-      <p style={{ fontSize: "0.9rem", color: "#666", marginTop: "1rem", textAlign: "center" }}>
-        *This is a demo login. No authentication applied.
-      </p>
+      </div>
     </div>
   );
 };
